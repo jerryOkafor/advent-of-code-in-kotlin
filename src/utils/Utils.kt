@@ -16,6 +16,7 @@ import java.awt.datatransfer.StringSelection
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.logging.Logger
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.time.Duration.Companion.milliseconds
@@ -67,13 +68,18 @@ fun <R> List<String>.parts(map: (List<String>) -> R): List<R> = buildList {
 }
 
 private fun getInputFile(): File {
-    val name = Throwable().stackTrace.first { it.className.contains("day") }.fileName
-    val day = name?.substringBefore("_")?.removePrefix("Day")?.padStart(2, '0')
-    val part = name?.substringAfter("_")?.removeSuffix(".kt")
-    val file = File("src/day$day/input$part.txt")
+    val stackTrace = Throwable().stackTrace.first { it.className.contains("day") }
+    val fileName = stackTrace.fileName
+    val classname = stackTrace.className
 
+    val dayName = fileName?.substringBefore("_")?.removePrefix("Day")?.padStart(2, '0')
+    val part = fileName?.substringAfter("_")?.removeSuffix(".kt")
+    val day = "day$dayName"
+    val dir = classname.substringBefore(day).replace('.', '/')
+
+    val file = File("src/$dir/$day/input$part.txt")
     return if (file.readText().isBlank()) {
-        File("src/day$day/input1.txt")
+        File("src/$dir/$day/input1.txt")
     } else file
 }
 
@@ -142,6 +148,7 @@ private fun <T> solveRaw(
         val fastest = List(count) {
             measureTime { solve(input) }
         }.minOrNull()!!
+
         println("Fastest time: [${String.format("%.3f", fastest.inWholeMicroseconds / 1000.0)}ms]")
     }
 }

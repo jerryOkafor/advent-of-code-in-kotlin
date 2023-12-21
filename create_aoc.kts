@@ -19,12 +19,16 @@ println("******* PROGRAM END ***************** ")
 
 fun createAdventOfCode(args: Array<String>) {
     val date = LocalDate.now()
-    val year = args.getOrNull(1) ?: date.year
+    val year = args.getOrNull(0) ?: date.year
+    var day = args.getOrNull(1)
+    val dayOfMonth = date.dayOfMonth.toString()
 
-    println("Please enter the day for the advent of code...")
-    val dayInput = readlnOrNull()
-    var day = dayInput?.ifBlank { date.dayOfMonth.toString() } ?: date.dayOfMonth.toString()
-    day = day.padStart(2, '0')
+    if(day == null) {
+        println("Please enter the day for the advent of code...")
+        val dayInput = readlnOrNull()
+        day = dayInput?.ifBlank { dayOfMonth } ?: dayOfMonth
+    }
+    day = day.toString().padStart(2, '0')
 
     val packageName = "adventOfCode.aoc$year.day$day"
     val dayDir = "src/adventOfCode/aoc$year/day$day"
@@ -33,7 +37,7 @@ fun createAdventOfCode(args: Array<String>) {
 
         import utils.solve
 
-        fun main() = solve {
+        fun main() = solve { lines ->
             
         }
     """.trimIndent()
