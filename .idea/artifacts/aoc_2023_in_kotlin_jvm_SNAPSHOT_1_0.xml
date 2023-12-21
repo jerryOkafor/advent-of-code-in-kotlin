@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="aoc-2023-in-kotlin-jvm-SNAPSHOT-1.0">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="aoc-2023-in-kotlin-jvm-SNAPSHOT-1.0.jar">
+      <element id="module-output" name="aoc-2023-in-kotlin.jvmMain" />
+    </root>
+  </artifact>
+</component>
