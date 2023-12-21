@@ -60,5 +60,5 @@ fun createAdventOfCode(args: Array<String>) {
         writeText(solve)
     }
 
-    println("\uD83D\uDEE0️  AOC created for $day in $year")
+    println("\uD83D\uDEE0️  AOC created for day $day in $year")
 }
