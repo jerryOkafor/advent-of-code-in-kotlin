@@ -133,13 +133,13 @@ private fun <T> solveRaw(
     }
     val time = "${String.format("%.3f", duration.inWholeMicroseconds / 1000.0)}ms"
     if (answer != "kotlin.Unit") {
-        println("Out: $answer [$time]")
+        println("Result: $answer [$time]")
 
         //Past the answer to the clipboard
         Toolkit.getDefaultToolkit().systemClipboard.setContents(StringSelection(answer), null)
         Thread.sleep(200) // Wait so the system has chance to notice the clipboard change
     } else {
-        println("No answer [$time]")
+        println("No Result found [$time]")
     }
 
     if (additionalTiming) {
